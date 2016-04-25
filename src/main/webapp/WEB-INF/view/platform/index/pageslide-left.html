@@ -1,0 +1,55 @@
+<aside class="aside">
+         <!-- START Sidebar (left)-->
+         <div class="aside-inner">
+            <nav data-sidebar-anyclick-close="" class="sidebar">
+               <!-- START sidebar nav-->
+               
+                  		<ul class="nav">
+						<!-- start: MAIN NAVIGATION MENU -->
+
+						    <li>
+								<a href="#" onclick='common_ajax.ajaxMainPanel("/jf/platform/index/content");'>
+									<em class="icon-speedometer"></em>
+									<span class="title"> 主页 </span>
+								</a>
+							</li>
+							
+							<% for(one in menuList){ %>
+							
+								<% if(isEmpty(one.subList) == false){ %>
+									<li class=" ">
+										<a href="#${one.names}" data-toggle="collapse">
+											<em class="${one.images}"></em>
+											<span class=" "> ${one.names} </span>
+										</a>
+										<ul id="${one.names}" class="nav sidebar-subnav collapse">
+											<% for(two in one.subList){ %>
+												<li title="${two.names!}">
+													<% if(strutil.contain(two.url, ".html") == false){ %>
+														<li>
+															<a href="#" onclick='common_ajax.ajaxMainPanel("${two.url!}");'>
+																${two.names}
+															</a>
+														</li>
+													<% }else{ %>
+														<li>
+															<a href="#" onclick='common_ajax.ajaxMainPanel("/jf/platform/index/toUrl?toUrl=${two.url!}");'>
+																${two.names}
+															</a>
+														</li>
+													<% } %>
+												</li>
+											<% } %>
+										</ul>
+								<% } %>
+							  </li>
+							<% } %>
+						  </ul>
+						</nav>
+						<!-- end: MAIN NAVIGATION MENU -->
+					</div>
+
+					<!-- end: SIDEBAR -->
+
+         <!-- END Sidebar (left)-->
+      </aside>

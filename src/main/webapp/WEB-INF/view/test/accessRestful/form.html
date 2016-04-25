@@ -1,0 +1,32 @@
+
+<div class="form-group">
+	<label class="col-sm-2 control-label">访问地址</label>
+	<div class="col-sm-7">
+		<input type="text" name="accessRestful.baseurl" value="${escapeXml(accessRestful.baseurl!)}" 
+			class="form-control" maxlength="200" vMin="20" vType="length" onblur="platform_verify.onblurVali(this);">
+		<span class="help-inline col-sm-2"></span>
+	</div>
+	<span class="help-inline col-sm-2"> <i class="fa fa-info-circle"></i> 填写   http://192.168.1.2:8080/qcbin/ 格式 </span>
+</div>
+
+<div class="form-group">
+	<label class="col-sm-2 control-label">用户名</label>
+	<div class="col-sm-7">
+		<input type="text" name="accessRestful.username" value="${escapeXml(accessRestful.username!)}" 
+			class="form-control" maxlength="50" vMin="2" vType="length" onblur="platform_verify.onblurVali(this);">
+		<span class="help-inline col-sm-2"></span>
+	</div>
+	<span class="help-inline col-sm-2"> <i class="fa fa-info-circle"></i> 1-50位任意字符 </span>
+</div>
+
+<div class="form-group">
+	<label class="col-sm-2 control-label">密码</label>
+	<div class="col-sm-7">
+		<input type="text" name="accessRestful.password" value="${escapeXml(accessRestful.password!)}" 
+			class="form-control" maxlength="50" vMin="2" vType="length" onblur="platform_verify.onblurVali(this);">
+		<span class="help-inline col-sm-2"></span>
+	</div>
+	<span class="help-inline col-sm-2"> <i class="fa fa-info-circle"></i> 1-50位任意字符 </span>
+</div>
+
+

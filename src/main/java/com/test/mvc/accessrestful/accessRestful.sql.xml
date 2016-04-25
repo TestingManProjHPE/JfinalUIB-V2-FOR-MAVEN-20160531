@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sql-statement namespace="test.accessRestful">
+	
+	<!-- 分页查询：from -->
+	<sql id="splitPage">
+		<![CDATA[ 
+		select *
+        	from 
+        		access_restful
+			
+			where 1=1
+			
+			<% if(!isEmpty(baseurl)){ %>
+					and author like #'%$baseurl$%'#
+			<% } %>	
+				
+    	]]>
+	</sql>
+	
+</sql-statement>
