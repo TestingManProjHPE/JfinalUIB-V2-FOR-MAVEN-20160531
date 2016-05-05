@@ -102,12 +102,14 @@
 									<% } %>
 										
 									<% if(edit == true){ %>
-									<button type="button" class="btn btn-green edit-row" 
-										onclick="common_ajax.ajaxMainPanel(
-												'/jf/test/blog/edit/${escapeXml(requirements.req_sn!)}');"> 
-										${i18nMap["admin.common.edit"]} 
-										<i class="fa fa-edit"></i>
-									</button>
+									<!--<button type="button" class="btn btn-green edit-row" -->
+										<!--onclick="common_ajax.ajaxMainPanel(-->
+												<!--'/jf/test/requirements/edit/${escapeXml(requirements.req_sn!)}');">-->
+										<!--${i18nMap["admin.common.edit"]} -->
+										<!--<i class="fa fa-edit"></i>-->
+									<!--</button>-->
+									<a href="#" data-toggle="modal" class="ajaxDialog btn"
+									   data-url="/jf/test/requirements/edit/${escapeXml(requirements.req_sn!)}" data-backdrop="true">编辑</a>
 									<% } %>
 									
 									<% if(delete == true){ %>

@@ -46,6 +46,7 @@ public class RequirementsController extends BaseController {
 	 * 准备更新
 	 */
 	public void edit() {
+
 		Requirements requirements = Requirements.dao.findById(getPara());
 		setAttr("requirements", requirements);
 		render("/test/requirements/update.html");
