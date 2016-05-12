@@ -28,7 +28,11 @@ public interface AlmRestfulService {
 	// 获取缺陷信息，并返回Entities对象
 	@GET("rest/domains/{domain}/projects/{project}/defects")
 	Call<Entities> getDefects(@Path("domain") String domain, @Path("project") String project);
+	
+//	@GET("rest/domains/{domain}/projects/{project}/defects")
+//	Call<String> getDefects(@Path("domain") String domain, @Path("project") String project);
 
+	
 	// 获取需求信息，并返回Entities对象
 	@GET("rest/domains/{domain}/projects/{project}/requirements")
 	Call<Entities> getRequirements(@Path("domain") String domain, @Path("project") String project);

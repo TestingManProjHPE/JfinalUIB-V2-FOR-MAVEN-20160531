@@ -34,6 +34,7 @@ import com.platform.tools.ToolDataBase;
 import com.test.mvc.accessrestful.AccessRestful;
 import com.test.mvc.blog.Blog;
 import com.test.mvc.requirements.Requirements;
+import com.test.mvc.defect.Defect;
 
 public class PlatformMapping extends BaseMapping{
 
@@ -114,7 +115,7 @@ public class PlatformMapping extends BaseMapping{
 		arp.addMapping("test_blog", "ids", Blog.class);
 		arp.addMapping("requirements", "req_sn", Requirements.class);
 		arp.addMapping("access_restful", "ids", AccessRestful.class);
-
+		arp.addMapping("defect", "defect_id", Defect.class);
 		log.info("configPlugin 注册ActiveRecordPlugin插件");
 		plugins.add(arp);
 	}

@@ -6,24 +6,17 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
+import org.simpleframework.xml.Text;
 
 @Root(name = "Entities")
 public class Entities {
-
-	public String getTotalResults() {
-		return totalResults;
-	}
-
-	public void setTotalResults(String totalResults) {
-		this.totalResults = totalResults;
-	}
 
 	@Attribute(name = "TotalResults")
 	private String totalResults;
 
 	@ElementList(inline = true)
 	private List<Entity> list;
-	
+
 	@Element(name = "singleElementCollection", required = false)
 	private String singleElementCollection;
 
@@ -35,23 +28,38 @@ public class Entities {
 		this.list = list;
 	}
 
+	public String getTotalResults() {
+		return totalResults;
+	}
+
+	public void setTotalResults(String totalResults) {
+		this.totalResults = totalResults;
+	}
+
+	public String getSingleElementCollection() {
+		return singleElementCollection;
+	}
+
+	public void setSingleElementCollection(String singleElementCollection) {
+		this.singleElementCollection = singleElementCollection;
+	}
+
 }
 
 @Root(name = "Entity")
 class Entity {
-	public String getType() {
-		return Type;
-	}
-
-	public void setType(String type) {
-		Type = type;
-	}
 
 	@Attribute(name = "Type")
 	private String Type;
 
 	@ElementList(inline = true)
 	private List<Fields> list;
+
+	@Element(name = "ChildrenCount")
+	private ChildrenCount childrenCount;
+
+	@Element(name = "RelatedEntities", required = false)
+	private String relatedEntities;
 
 	public List<Fields> getList() {
 		return list;
@@ -61,11 +69,21 @@ class Entity {
 		this.list = list;
 	}
 
-	@Element(name = "ChildrenCount")
-	private ChildrenCount childrenCount;
+	public String getType() {
+		return Type;
+	}
 
-	@Element(name = "RelatedEntities", required = false)
-	private String relatedEntities;
+	public void setType(String type) {
+		Type = type;
+	}
+
+	public String getRelatedEntities() {
+		return relatedEntities;
+	}
+
+	public void setRelatedEntities(String relatedEntities) {
+		this.relatedEntities = relatedEntities;
+	}
 
 	public ChildrenCount getChildrenCount() {
 		return childrenCount;
@@ -94,7 +112,10 @@ class ChildrenCount {
 
 @Root(name = "Fields")
 class Fields {
-	
+
+	@ElementList(inline = true)
+	private List<Field> field;
+
 	public List<Field> getField() {
 		return field;
 	}
@@ -102,21 +123,16 @@ class Fields {
 	public void setField(List<Field> field) {
 		this.field = field;
 	}
-
-	@ElementList(inline = true)
-	private List<Field> field;
-
 }
 
 @Root(name = "Field")
 class Field {
-	public String getValue() {
-		return Value;
-	}
 
-	public void setValue(String value) {
-		Value = value;
-	}
+	@ElementList(inline = true, required = false)
+	private List<Value> valuelist;
+
+	@Attribute(name = "Name")
+	private String name;
 
 	public String getName() {
 		return name;
@@ -126,10 +142,39 @@ class Field {
 		this.name = name;
 	}
 
-	@Element(required = false)
-	private String Value;
+	public List<Value> getValuelist() {
+		return valuelist;
+	}
 
-	@Attribute(name = "Name")
-	private String name;
+	public void setValuelist(List<Value> valuelist) {
+		this.valuelist = valuelist;
+	}
+
+}
+
+@Root(name = "Value")
+class Value {
+
+	@Attribute(name = "ReferenceValue", required = false)
+	private String referenceValue;
+
+	@Text(required = false)
+	private String text;
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public String getReferenceValue() {
+		return referenceValue;
+	}
+
+	public void setReferenceValue(String referenceValue) {
+		this.referenceValue = referenceValue;
+	}
 
 }

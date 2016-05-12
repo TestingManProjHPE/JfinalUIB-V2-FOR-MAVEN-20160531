@@ -39,7 +39,8 @@ public abstract class GenerateBase {
 	public static String[][] tableArr = {
 //		{"ConstantInit.db_dataSource_main", "test_blog", "ids", "TestBlog"}
 //		{null, "requirements", "req_sn" , "Requirements"},
-		{null, "access_restful", "ids", "AccessRestful"}
+//		{null, "access_restful", "ids", "AccessRestful"},
+		{null, "defect", "defect_id", "Defect"}	
 //		{null, "pt_department", null, "Department"},
 //		{null, "pt_dict", null, "Dict"},
 //		{null, "pt_group", null, "Group"},

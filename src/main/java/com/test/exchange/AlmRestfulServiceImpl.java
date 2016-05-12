@@ -69,12 +69,19 @@ public class AlmRestfulServiceImpl {
 		return domains;
 	}
 
-	public Entities getDefects() throws IOException {
-		Call<Entities> call = retroFactory.getXmlService().getDefects(domain, project);
-		Response<Entities> response = call.execute();
-		Entities defects = response.body();
-		return defects;
-	}
+	 public Entities getDefects() throws IOException {
+	 Call<Entities> call = retroFactory.getXmlService().getDefects(domain,
+	 project);
+	 Response<Entities> response = call.execute();
+	 Entities defects = response.body();
+	 return defects;
+	 }
+
+//	public void getDefects() throws IOException {
+//		Call<String> call = retroFactory.getScalarsService().getDefects(domain, project);
+//		Response<String> response = call.execute();
+//		System.out.println(response.body());
+//	}
 
 	public Entities getRequirements() throws IOException {
 		Call<Entities> call = retroFactory.getXmlService().getRequirements(domain, project);

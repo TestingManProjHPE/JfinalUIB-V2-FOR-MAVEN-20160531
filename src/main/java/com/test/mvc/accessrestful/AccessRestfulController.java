@@ -4,6 +4,7 @@ import com.platform.constant.ConstantInit;
 import com.platform.mvc.base.BaseController;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 import org.apache.log4j.Logger;
 import com.jfinal.aop.Before;
@@ -27,7 +28,7 @@ public class AccessRestfulController extends BaseController {
 
 	@SuppressWarnings("unused")
 	private static Logger log = Logger.getLogger(AccessRestfulController.class);
-	
+
 	/**
 	 * 列表
 	 */
@@ -35,7 +36,7 @@ public class AccessRestfulController extends BaseController {
 		paging(ConstantInit.db_dataSource_main, splitPage, AccessRestful.sqlId_splitPage_from);
 		render("/test/accessRestful/list.html");
 	}
-	
+
 	/**
 	 * 保存
 	 */
@@ -44,7 +45,7 @@ public class AccessRestfulController extends BaseController {
 		getModel(AccessRestful.class).save();
 		render("/test/accessRestful/add.html");
 	}
-	
+
 	/**
 	 * 准备更新
 	 */
@@ -53,7 +54,7 @@ public class AccessRestfulController extends BaseController {
 		setAttr("accessRestful", accessRestful);
 		render("/test/accessRestful/update.html");
 	}
-	
+
 	/**
 	 * 更新
 	 */
@@ -71,7 +72,7 @@ public class AccessRestfulController extends BaseController {
 		setAttr("accessRestful", accessRestful);
 		render("/test/accessRestful/view.html");
 	}
-	
+
 	/**
 	 * 删除
 	 */
@@ -80,26 +81,25 @@ public class AccessRestfulController extends BaseController {
 		redirect("/jf/test/accessRestful");
 	}
 
-
 	/**
 	 * 数据导入
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
+	 * @throws ParseException
 	 */
-	public void importData() throws IOException {
-		
+	public void importData() throws IOException, ParseException {
+
 		AccessRestful accessRestful = AccessRestful.dao.findById(getPara());
-		
-		accessRestful.getBaseurl();
-		accessRestful.getPassword();
-		accessRestful.getUsername();
-		
-		Translate translate = new Translate();
-		
+
+		Translate translate = new Translate(accessRestful.getBaseurl(), accessRestful.getUsername(),
+				accessRestful.getPassword());
+
 		translate.importData();
-		
+
 		redirect("/jf/test/accessRestful");
-		
-//		AccessRestfulService.service.delete("access_restful", getPara() == null ? ids : getPara());
+
+		// AccessRestfulService.service.delete("access_restful", getPara() ==
+		// null ? ids : getPara());
 	}
 
 }

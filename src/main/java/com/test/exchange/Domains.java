@@ -51,19 +51,20 @@ class Domain {
 @Root
 class Projects {
 	
-	public Project getProject() {
-		return project;
+	@ElementList(inline = true)
+	private List<Project> list;
+
+	public List<Project> getList() {
+		return list;
 	}
 
-	public void setProject(Project project) {
-		this.project = project;
+	public void setList(List<Project> list) {
+		this.list = list;
 	}
-
-	@Element(name = "Project")
-	private Project project;
+	
 }
 
-@Root
+@Root(name = "Project")
 class Project {
 	@Attribute(name = "Name")
 	private String name;

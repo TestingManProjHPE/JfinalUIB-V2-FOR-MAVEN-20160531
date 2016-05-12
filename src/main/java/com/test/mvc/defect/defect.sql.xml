@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sql-statement namespace="test.defect">
+	
+	<!-- 分页查询：from -->
+	<sql id="splitPage">
+		<![CDATA[ 
+		select *
+		
+        	from 
+        		defect
+			
+			where 1=1
+			 
+			<% if(!isEmpty(system)){ %>
+					and title like #'%$system$%'#
+			<% } %>	
+				
+    	]]>
+	</sql>
+	
+</sql-statement>

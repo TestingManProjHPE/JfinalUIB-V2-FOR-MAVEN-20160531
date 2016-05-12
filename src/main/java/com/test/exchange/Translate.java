@@ -1,22 +1,29 @@
 package com.test.exchange;
 
 import java.io.IOException;
-import java.util.List;
-
+import org.apache.log4j.Logger;
 import com.jfinal.plugin.activerecord.Db;
-import com.test.mvc.requirements.Requirements;
+import com.jfinal.plugin.activerecord.Record;
+import com.platform.config.mapping.BaseMapping;
+import static com.platform.tools.ToolDateTime.*;
 
 public class Translate {
+	private static Logger log = Logger.getLogger(BaseMapping.class);
+	private String baseUrl;
+	private String username;
+	private String password;
 
-	private String baseUrl = "http://192.168.5.130:8080/qcbin/";
-	private String username = "almtest";
-	private String password = "password";
+	public Translate(String baseUrl, String username, String password) {
+		this.baseUrl = baseUrl;
+		this.username = username;
+		this.password = password;
+	}
 
-	AlmRestfulServiceImpl almService = new AlmRestfulServiceImpl(baseUrl);
-
-	Object[][] sqlPara = new Object[30][5];
+	
 
 	public void importData() {
+		
+		AlmRestfulServiceImpl almService = new AlmRestfulServiceImpl(baseUrl);
 		// TODO 拆成鉴权,获取domains,获取其他数据
 		try {
 
@@ -30,40 +37,105 @@ public class Translate {
 			Domain domain = domains.getList().get(0);
 
 			almService.setDomain(domain.getName());
-			almService.setProject(domain.getProjects().getProject().getName());
+			almService.setProject(domain.getProjects().getList().get(0).getName());
+			// System.out.println(almService.getRequirements().body());
+			// log.info(almService.getRequirements().body());
 
 			for (Entity entity : almService.getRequirements().getList()) {
-				// System.out.println(entity.getChildrenCount().getValue());
 
 				for (int j = 0; j < entity.getList().size(); j++) {
+					Record record = new Record();
 					for (int i = 0; i < entity.getList().get(j).getField().size(); i++) {
 						Field field = entity.getList().get(j).getField().get(i);
-						// System.out.println(field.getName() + " : " +
-						// field.getValue());
+
+						String sqlValue;
+						if (field.getValuelist() == null || field.getValuelist().size() <= 0) {
+							sqlValue = null;
+						} else {
+							sqlValue = field.getValuelist().get(0).getText();
+						}
+
 						switch (field.getName()) {
 						case "id":
-							sqlPara[j][0] = field.getValue();
-						case "last-modified":
-							sqlPara[j][1] = field.getValue();
+							record.set("req_sn", sqlValue);
+							break;
+						case "creation-time":
+							record.set("creationdate", getSqlTimestamp(parse(sqlValue, pattern_ymd)));
+							break;
 						case "owner":
-							sqlPara[j][2] = field.getValue();
+							record.set("author", sqlValue);
+							break;
 						case "req-product":
-							sqlPara[j][3] = field.getValue();
-						case "target-rcyc":
-							sqlPara[j][4] = field.getValue();
+							record.set("product_name", sqlValue);
+							break;
+						case "status":
+							record.set("req_status", sqlValue);
+							break;
+						case "type-id":
+							record.set("req_type", Integer.valueOf(sqlValue));
+							break;
+						// case "description":
+						// record.set("description", sqlValue);
+						// case "attachment":
+						// record.set("attachment", sqlValue);
+						// case "target-rcyc":
+						// sqlPara[j][4] = field.getValuelist().get(0) ? "0"
+						// : field.getValuelist().get(0);
 						default:
 							;
 						}
 					}
+					Db.save("requirements", record);
 				}
-
-				System.out.println(sqlPara[0][0] + ", " + sqlPara[0][1] + ", " + sqlPara[0][2] + ", " + sqlPara[0][3]
-						+ ", " + sqlPara[0][4]);
-
 			}
 
-//			String sql = "insert into requirements(req_sn, creationdate, author, product_name, targetcycle) values(?, ?, ?, ?, ?)";
-//			Db.batch(sql, sqlPara, 1000);
+			for (Entity DefectEntity : almService.getDefects().getList()) {
+				// System.out.println(entity.getChildrenCount().getValue());
+
+				for (int j = 0; j < DefectEntity.getList().size(); j++) {
+					Record record = new Record();
+					for (int i = 0; i < DefectEntity.getList().get(j).getField().size(); i++) {
+						Field field = DefectEntity.getList().get(j).getField().get(i);
+
+						String sqlValue;
+						if (field.getValuelist() == null || field.getValuelist().size() <= 0) {
+							sqlValue = null;
+						} else {
+							sqlValue = field.getValuelist().get(0).getText();
+						}
+
+						switch (field.getName()) {
+						case "id":
+							record.set("defect_id", sqlValue);
+							break;
+						case "project":
+							record.set("system", sqlValue);
+							break;
+						case "status":
+							record.set("def_Status", sqlValue);
+							break;
+						case "detected-by":
+							record.set("Detected_By", sqlValue);
+							break;
+						case "priority":
+							record.set("Priority", sqlValue);
+							break;
+						//// case "attachment":
+						//// record.set("attachment", sqlValue);
+						// // case "target-rcyc":
+						// // sqlPara[j][4] = field.getValuelist().get(0) ? "0"
+						// // : field.getValuelist().get(0);
+						default:
+							;
+						}
+					}
+					Db.save("defect", record);
+				}
+			}
+
+			// String sql = "insert into requirements(req_sn, creationdate,
+			// author, product_name) values(?, ?, ?, ?)";
+			// Db.batch(sql, sqlPara, 200);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -72,8 +144,8 @@ public class Translate {
 	}
 
 	public static void main(String[] args) {
-		Translate translate = new Translate();
-		translate.importData();
+		// Translate translate = new Translate();
+		// translate.importData();
 	}
 
 }

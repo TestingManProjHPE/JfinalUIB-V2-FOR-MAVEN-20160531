@@ -3,7 +3,7 @@
 	<div class="col-md-12">
 		<ol class="breadcrumb">
 			<li><a href="#" onclick="common_ajax.ajaxMainPanel('/jf/platform/index/content');">主页</a></li>
-			<li><a href="#" onclick="common_ajax.ajaxMainPanel('/jf/test/requirements');">需求</a></li>
+			<li><a href="#" onclick="common_ajax.ajaxMainPanel('/jf/test/defect');">缺陷</a></li>
 			<li class="active">查看</li>
 		</ol>
 	</div>
@@ -27,77 +27,91 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"> </label>
 						<div class="col-sm-7">
-							<input type="text" class="form-control" readonly="readonly" value="requirements.author">
+							<input type="text" class="form-control" readonly="readonly" value="${escapeXml(defect.system!)}">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-2 control-label"> </label>
 						<div class="col-sm-7">
-							<input type="text" class="form-control" readonly="readonly" value="requirements.creationdate">
+							<input type="text" class="form-control" readonly="readonly" value="${escapeXml(defect.module!)}">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-2 control-label"> </label>
 						<div class="col-sm-7">
-							<input type="text" class="form-control" readonly="readonly" value="requirements.product_name">
+							<input type="text" class="form-control" readonly="readonly" value="${escapeXml(defect.target_cycle!)}">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-2 control-label"> </label>
 						<div class="col-sm-7">
-							<input type="text" class="form-control" readonly="readonly" value="requirements.system_module">
+							<input type="text" class="form-control" readonly="readonly" value="${escapeXml(defect.target_release!)}">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-2 control-label"> </label>
 						<div class="col-sm-7">
-							<input type="text" class="form-control" readonly="readonly" value="requirements.targetcycle">
+							<input type="text" class="form-control" readonly="readonly" value="${escapeXml(defect.def_type!)}">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-2 control-label"> </label>
 						<div class="col-sm-7">
-							<input type="text" class="form-control" readonly="readonly" value="requirements.targetrelease">
+							<input type="text" class="form-control" readonly="readonly" value="${escapeXml(defect.def_status!)}">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-2 control-label"> </label>
 						<div class="col-sm-7">
-							<input type="text" class="form-control" readonly="readonly" value="requirements.req_sn">
+							<input type="text" class="form-control" readonly="readonly" value="${escapeXml(defect.assignedto!)}">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-2 control-label"> </label>
 						<div class="col-sm-7">
-							<input type="text" class="form-control" readonly="readonly" value="requirements.description">
+							<input type="text" class="form-control" readonly="readonly" value="${escapeXml(defect.detected_by!)}">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-2 control-label"> </label>
 						<div class="col-sm-7">
-							<input type="text" class="form-control" readonly="readonly" value="requirements.attachment">
+							<input type="text" class="form-control" readonly="readonly" value="${escapeXml(defect.deteded_date!)}">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-2 control-label"> </label>
 						<div class="col-sm-7">
-							<input type="text" class="form-control" readonly="readonly" value="requirements.req_type">
+							<input type="text" class="form-control" readonly="readonly" value="${escapeXml(defect.priority!)}">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-2 control-label"> </label>
 						<div class="col-sm-7">
-							<input type="text" class="form-control" readonly="readonly" value="requirements.req_status">
+							<input type="text" class="form-control" readonly="readonly" value="${escapeXml(defect.description!)}">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label"> </label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control" readonly="readonly" value="${escapeXml(defect.summary!)}">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label"> </label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control" readonly="readonly" value="${escapeXml(defect.attachment!)}">
 						</div>
 					</div>
 					
@@ -106,4 +120,4 @@
 		
 		</div>
 	</div>
-</div>
+</div>	
