@@ -1,10 +1,14 @@
 package com.test.mvc.requirements;
 
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Record;
 import com.platform.constant.ConstantInit;
 import com.platform.mvc.base.BaseController;
 
 import org.apache.log4j.Logger;
 import com.jfinal.aop.Before;
+
+import java.util.List;
 
 /**
  * XXX 管理	
@@ -76,6 +80,11 @@ public class RequirementsController extends BaseController {
 	public void delete() {
 		RequirementsService.service.delete("requirements", getPara() == null ? ids : getPara());
 		redirect("/jf/test/requirements");
+	}
+
+	public void reportone() {
+		List<Record> data = Db.find("select count(*) as 数量,creationdate as 日期 from requirements group by creationdate");
+		renderJson("testdata",data);
 	}
 	
 }

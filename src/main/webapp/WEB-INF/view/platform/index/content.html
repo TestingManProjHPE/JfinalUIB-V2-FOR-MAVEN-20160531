@@ -6,7 +6,7 @@
 			<div class="panel-heading">
 				<h4 class="panel-title"><span class="text-bold">缺陷统计</span></h4>
 				<div class="panel-tools">
-					<% include("/common/panel-tools.html"){} %>
+					<% include("/common/panel-tools-graphs.html"){} %>
 				</div>
 			</div>
 			<div class="panel-body dimpleChartWindow" id="dimpleRingContent" style="height: 420px;">
@@ -133,40 +133,67 @@
 		<!-- start: BORDERED TABLE PANEL -->
 		<div class="panel panel-white">
 			<div class="panel-heading">
-				<h4 class="panel-title"><span class="text-bold">缺陷统计（按人）</span></h4>
+				<h4 class="panel-title"><span class="text-bold">需求统计（按日期）</span></h4>
 				<div class="panel-tools">
 					<% include("/common/panel-tools.html"){} %>
 				</div>
 			</div>
 			<div class="panel-body dimpleChartWindow" id="dimpleBarContent" style="height:410px">
 				<script type="text/javascript">
-					var svg = dimple.newSvg("#dimpleBarContent", 590, 400);
-					data = [
-						{ "Price":"1","测试人员":"人员1","缺陷数量":1000 },
-						{ "Price":"2","测试人员":"人员2","缺陷数量":1200 },
-						{ "Price":"3","测试人员":"人员3","缺陷数量":1600 },
-						{ "Price":"1","测试人员":"人员4","缺陷数量":1900 },
-						{ "Price":"2","测试人员":"人员5","缺陷数量":2300 },
-						{ "Price":"3","测试人员":"人员6","缺陷数量":3100 },
-						{ "Price":"1","测试人员":"人员7","缺陷数量":3200 },
-						{ "Price":"2","测试人员":"人员8","缺陷数量":3421 },
-						{ "Price":"3","测试人员":"人员9","缺陷数量":3653 },
-						{ "Price":"1","测试人员":"人员10","缺陷数量":4812 },
-						{ "Price":"2","测试人员":"人员11","缺陷数量":4912 },
-						{ "Price":"3","测试人员":"人员12","缺陷数量":5412 },
-					];
-					var myChart = new dimple.chart(svg, data);
-					myChart.setBounds(60, 30, 510, 305);
-					var x = myChart.addCategoryAxis("x", "测试人员");
-					x.addOrderRule("缺陷数量")
-					var y = myChart.addMeasureAxis("y", "缺陷数量");
+					url = 'http://localhost:8080/jf/test/requirements/reportone';
+					d3.json(url,function(jsonstr) {
+						var svg = dimple.newSvg("#dimpleBarContent", 590, 400);
+						console.log(jsonstr);
+						data=jsonstr.testdata;
+						var myChart = new dimple.chart(svg, data);
+						myChart.setBounds(60, 30, 510, 305);
+						var x = myChart.addCategoryAxis("x", "日期");
+						x.addOrderRule("数量");
+						var y = myChart.addMeasureAxis("y", "数量");
 //					y.addOrderRule("Number");
-					var mySeries = myChart.addSeries(null, dimple.plot.bar);
-					mySeries.addEventHandler("click", function (e) {
-						console.log("add mouse event"); // Log the brand of the clicked bubble
+						var mySeries = myChart.addSeries(null, dimple.plot.bar);
+						mySeries.addEventHandler("click", function (e) {
+							console.log("add mouse event"); // Log the brand of the clicked bubble
 
+						});
+						myChart.draw();
 					});
-					myChart.draw();
+				</script>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<!-- start: BORDERED TABLE PANEL -->
+		<div class="panel panel-white">
+			<div class="panel-heading">
+				<h4 class="panel-title"><span class="text-bold">缺陷统计（按发现者）</span></h4>
+				<div class="panel-tools">
+					<% include("/common/panel-tools.html"){} %>
+				</div>
+			</div>
+			<div class="panel-body dimpleChartWindow" id="dimpleBarContentDefect" style="height:410px">
+				<script type="text/javascript">
+					url = 'http://localhost:8080/jf/test/defect/reportone';
+					d3.json(url,function(jsonstr) {
+						var svg = dimple.newSvg("#dimpleBarContentDefect", 590, 400);
+						console.log(jsonstr);
+						data=jsonstr.testdata;
+						var myChart = new dimple.chart(svg, data);
+						myChart.setBounds(60, 30, 510, 305);
+						var x = myChart.addCategoryAxis("x", "人员");
+						x.addOrderRule("数量");
+						var y = myChart.addMeasureAxis("y", "数量");
+//					y.addOrderRule("Number");
+						var mySeries = myChart.addSeries(null, dimple.plot.bar);
+						mySeries.addEventHandler("click", function (e) {
+							console.log("add mouse event"); // Log the brand of the clicked bubble
+
+						});
+						myChart.draw();
+					});
 				</script>
 			</div>
 		</div>

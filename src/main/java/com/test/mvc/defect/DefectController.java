@@ -1,5 +1,7 @@
 package com.test.mvc.defect;
 
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Record;
 import com.platform.annotation.Controller;
 import com.platform.constant.ConstantInit;
 import com.platform.mvc.base.BaseController;
@@ -8,6 +10,8 @@ import com.platform.mvc.base.BaseModel;
 import org.apache.log4j.Logger;
 
 import com.jfinal.aop.Before;
+
+import java.util.List;
 
 /**
  * XXX 管理	
@@ -79,5 +83,11 @@ public class DefectController extends BaseController {
 		DefectService.service.delete("defect", getPara() == null ? ids : getPara());
 		redirect("/jf/test/defect");
 	}
-	
+
+	public void reportone() {
+		List<Record> data = Db.find("select count(*) as 数量,detected_by as 人员 from defect group by detected_by");
+		renderJson("testdata",data);
+	}
+
+
 }
